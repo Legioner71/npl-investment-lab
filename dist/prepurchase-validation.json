@@ -1,0 +1,109 @@
+{
+  "model_id": "synthetic-0e3db29293e4",
+  "synthetic": true,
+  "counts": {
+    "train": 1600,
+    "calibration": 576,
+    "test": 960,
+    "purged_borrowers": 64
+  },
+  "excluded": {
+    "incomplete_outcome": 120
+  },
+  "split": {
+    "train_end": "2023-03-31",
+    "calibration_start": "2024-04-01",
+    "calibration_end": "2024-06-30",
+    "test_start": "2025-07-01",
+    "test_end": "2025-09-30"
+  },
+  "metrics": {
+    "auc": 0.7245392779232598,
+    "brier": 0.20901523232720376,
+    "baseline_brier": 0.23087910880918786,
+    "mae_money": 5019.080380059264,
+    "baseline_mae_money": 5562.480475344696,
+    "expected_payers": 390.95119197175757,
+    "actual_payers": 401,
+    "predicted_gross": 5022896.6825013235,
+    "actual_gross": 5058632.029999999,
+    "gross_error_fraction": -0.007064231453631904,
+    "top20_payer_share": 0.7083333333333334,
+    "overall_payer_share": 0.41770833333333335,
+    "top20_cash_capture": 0.4498407704898828
+  },
+  "calibration_bins": [
+    {
+      "count": 96,
+      "predicted": 0.15158379315130624,
+      "observed": 0.14583333333333334
+    },
+    {
+      "count": 96,
+      "predicted": 0.23381311808234173,
+      "observed": 0.1875
+    },
+    {
+      "count": 96,
+      "predicted": 0.28773028075834695,
+      "observed": 0.25
+    },
+    {
+      "count": 96,
+      "predicted": 0.32950587904218587,
+      "observed": 0.34375
+    },
+    {
+      "count": 96,
+      "predicted": 0.3744551836148744,
+      "observed": 0.34375
+    },
+    {
+      "count": 96,
+      "predicted": 0.41911377524211196,
+      "observed": 0.40625
+    },
+    {
+      "count": 96,
+      "predicted": 0.4741570295977695,
+      "observed": 0.5416666666666666
+    },
+    {
+      "count": 96,
+      "predicted": 0.5263098238649049,
+      "observed": 0.5416666666666666
+    },
+    {
+      "count": 96,
+      "predicted": 0.5883315158252296,
+      "observed": 0.6875
+    },
+    {
+      "count": 96,
+      "predicted": 0.687407850526737,
+      "observed": 0.7291666666666666
+    }
+  ],
+  "cutoffs": {
+    "train_labels_known_before": "2024-04-01",
+    "calibration_labels_known_before": "2025-07-01"
+  },
+  "training_baseline": {
+    "bank_early": {
+      "probability": 0.5199004975124378,
+      "conditional_fraction": 0.5627120518269245
+    },
+    "bank_late": {
+      "probability": 0.3283582089552239,
+      "conditional_fraction": 0.5007737222286317
+    },
+    "mfo_early": {
+      "probability": 0.43781094527363185,
+      "conditional_fraction": 0.3148857840682355
+    },
+    "mfo_late": {
+      "probability": 0.27114427860696516,
+      "conditional_fraction": 0.26720570916848196
+    }
+  }
+}

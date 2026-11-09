@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Демонстраційний інструмент оцінки портфелів заборгованості. Інвестиційна логіка, сценарії та контроль результату на синтетичних даних.">
+  <title>NPL Investment Lab · Sergey Golubev</title>
+  <meta name="theme-color" content="#111715">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="premium.css?v=0.9">
+  <script src="engine.js?v=0.9" defer></script><script src="expenses.js?v=0.9" defer></script><script src="prepurchase-engine.js?v=0.9" defer></script><script src="comparison-ui.js?v=0.9" defer></script><script src="prepurchase-ui.js?v=0.9" defer></script><script src="strategy-engine.js?v=0.9" defer></script><script src="strategy-ui.js?v=0.9" defer></script><script src="risk-engine.js?v=0.9" defer></script><script src="risk-ui.js?v=0.9" defer></script><script src="monte-carlo.js?v=0.9" defer></script><script src="monte-carlo-ui.js?v=0.9" defer></script><script src="project-engine.js?v=0.9" defer></script><script src="project-ui.js?v=0.9" defer></script><script src="app.js?v=0.9" defer></script>
+<link rel="stylesheet" href="risk.css?v=0.8"><link rel="stylesheet" href="monte-carlo.css?v=0.8">
+<link rel="stylesheet" href="project.css?v=0.9"></head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#overview" aria-label="NPL Investment Lab"><span class="brand-mark"><svg viewBox="0 0 42 46" aria-hidden="true"><defs><linearGradient id="brand-gradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9be7c2"/><stop offset="1" stop-color="#3c936d"/></linearGradient></defs><path fill="url(#brand-gradient)" d="M2 44V2h9l22 29V2h7v42h-8L9 14v30z"/><path fill="#122c20" opacity=".5" d="m11 2 22 29v13L11 15z"/></svg></span><span>NPL<span class="brand-sub">INVESTMENT LAB</span></span></a>
+    <div class="workspace"><span class="live-dot"></span> Україна <span class="version">DEMO v0.9</span></div>
+    <div class="nav-label">РОБОЧИЙ ПРОСТІР</div>
+    <nav aria-label="Розділи програми"><button class="nav-item active" data-tab="overview"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V11h4v9m4 0V4h4v16m4 0v-6h-1"/></svg></span> Оцінка портфеля</button><button class="nav-item" data-tab="risk"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 3v17h17"/><circle cx="9" cy="14" r="2"/><circle cx="15" cy="8" r="3"/><circle cx="20" cy="13" r="1"/></svg></span> Ризик — дохідність</button><button class="nav-item" data-tab="montecarlo"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 20h18M4 18c4 0 4-14 8-14s4 14 8 14M8 18V9m8 9V9"/></svg></span> Монте-Карло</button><button class="nav-item" data-tab="prepurchase"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5M8 11l2-3 2 2"/></svg></span> До купівлі · ML</button><button class="nav-item" data-open-comparison="true"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5M8 11l2-3 2 2"/></svg></span> Порівняння моделей</button><button class="nav-item" data-tab="strategy"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 11h18m-13 5 3 2 5-4"/></svg></span> Стратегія · 90 днів</button><button class="nav-item" data-tab="monitoring"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/></svg></span> Прогноз / факт</button><button class="nav-item" data-tab="method"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg></span> Методологія</button><details class="nav-tools" id="nav-tools"><summary>Інструменти портфеля <span>⌄</span></summary><button class="nav-item" data-tab="register"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span> Реєстр вимог <small id="nav-count">1 200</small></button><button class="nav-item" data-tab="potential"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 3 8-9m-6 0h6v6"/></svg></span> Потенціал вимог</button><button class="nav-item" data-tab="costs"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v12c0 4 16 4 16 0V5M4 11c0 4 16 4 16 0"/></svg></span> Витрати стягнення</button><button class="nav-item" data-tab="cashflow"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16h4l3-9 4 12 3-8h4"/></svg></span> Грошовий потік</button><button class="nav-item" data-tab="scenarios"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V4m0 5h8l6-5M5 15h8l6 5M13 9v6"/></svg></span> Сценарії та ризики</button></details></nav>
+    <div class="author"><span class="avatar">SG</span><div><strong>Sergey Golubev</strong><span>Демонстраційна версія</span></div></div>
+  </aside>
+  <main>
+    <header class="topbar"><span class="breadcrumb">Портфелі <span>/</span> <b id="portfolio-code">UA DEMO · 001</b></span><div><span class="date">2 листопада 2026</span></div><div class="header-actions"><button class="button secondary" data-goto="strategy" id="strategy-shortcut">Стратегія на 90 днів →</button><button class="button secondary" id="import-button">↑ Імпорт CSV</button><button class="button primary" id="report-button">↓ Інвест. висновок</button></div></header>
+    <div class="page-wrap">
+      <section class="page-heading"><div><div class="eyebrow" id="eyebrow">РІШЕННЯ ПРО ПРИДБАННЯ</div><div class="heading-title-line"><h1 id="page-title">Оцінка портфеля</h1><span class="data-badge" id="data-badge">СИНТЕТИЧНІ ДАНІ</span></div><p id="page-subtitle">Від реєстру вимог — до обґрунтованої ціни покупки.</p></div></section>
+      <section id="project-bar" aria-label="Поточний проєкт"></section><div id="alert" role="alert" hidden></div>
+      <section id="tab-overview" class="tab-panel"></section>
+      <section id="tab-montecarlo" class="tab-panel" hidden></section>
+      <section id="tab-risk" class="tab-panel" hidden></section>
+      <section id="tab-register" class="tab-panel" hidden></section>
+      <section id="tab-prepurchase" class="tab-panel" hidden></section>
+      <section id="tab-strategy" class="tab-panel" hidden></section>
+      <section id="tab-potential" class="tab-panel" hidden></section>
+      <section id="tab-costs" class="tab-panel" hidden></section>
+      <section id="tab-cashflow" class="tab-panel" hidden></section>
+      <section id="tab-scenarios" class="tab-panel" hidden></section>
+      <section id="tab-monitoring" class="tab-panel" hidden></section>
+      <section id="tab-method" class="tab-panel" hidden></section>
+      <footer><span>NPL Investment Lab · Sergey Golubev</span><span>Оцінка проєкту · до податків · без левереджу</span></footer>
+    </div>
+  </main>
+  <input id="project-input" type="file" accept=".json,.csv,application/json,text/csv" hidden><input id="actual-input" type="file" accept=".csv,text/csv" hidden><input id="csv-input" type="file" accept=".csv,text/csv" hidden>
+  <input id="pre-input" type="file" accept=".json,application/json" hidden>
+  <input id="risk-input" type="file" accept=".json,application/json" hidden>
+  <input id="strategy-input" type="file" accept=".json,application/json" hidden>
+  <div id="toast" role="status"></div>
+  <dialog id="report-dialog"><div class="dialog-head"><div><div class="eyebrow">ЗВІТ · ДЕМОНСТРАЦІЯ</div><h2>Короткий висновок</h2></div><button class="icon-button" id="close-report" aria-label="Закрити">×</button></div><div id="report-content"></div><div class="dialog-actions"><button class="button secondary" id="download-memo">↓ Зберегти HTML</button><a class="button secondary" id="download-mc-report" download="npl-monte-carlo-report.html" hidden>↓ Зберегти HTML</a><a class="button secondary" id="download-strategy-report" download="npl-strategy-90d.html" hidden>↓ Зберегти HTML</a><button class="button primary" id="print-memo">Друк / PDF</button></div></dialog>
+  <noscript>Для інтерактивних розрахунків увімкніть JavaScript.</noscript>
+</body>
+</html>
