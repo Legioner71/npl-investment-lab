@@ -1,0 +1,9 @@
+{
+  "draws": 5000,
+  "seed": 20261030,
+  "common_rho": 0.08,
+  "borrower_share": 0.65,
+  "amount_spread": 0.35,
+  "cost_spread": 0.2,
+  "delay_jitter": 3
+}
